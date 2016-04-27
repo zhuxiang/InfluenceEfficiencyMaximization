@@ -1,2 +1,2 @@
-# influence_efficiency_maximization
+# Influence Efficiency Maximization
 A new problem based on influence maximization

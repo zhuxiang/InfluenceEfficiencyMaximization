@@ -21,25 +21,26 @@ import org.jgrapht.graph.DefaultWeightedEdge;
 public class ReverseEfficiencySampling {
 	private HashMap<String, Double> generateReverseReachableMap(DefaultDirectedWeightedGraph<String, DefaultWeightedEdge> g, String v, Random randomFlip){
 		HashMap<String, Double> rrMap = new HashMap<>();
-		HashMap<String, Boolean> searchedNodeMap = new HashMap<>();
+		HashSet<String> activedVertexSet = new HashSet<>();
 		// initialize reverse reachable dequeue
 		Deque<String> sDeque = new ArrayDeque<String>();
 		sDeque.addLast(v);
+		activedVertexSet.add(v);
 		rrMap.put(v, 1.0);
 		while (sDeque.size() > 0) {
 			String vertex = sDeque.removeFirst();
-			searchedNodeMap.put(vertex, true);
 			Set<DefaultWeightedEdge> incomingEdges = g.incomingEdgesOf(vertex);
 			int inDegree = g.inDegreeOf(vertex);
 			for (DefaultWeightedEdge incomingEdge : incomingEdges) {
 				String sourceVertex = g.getEdgeSource(incomingEdge);
-				if (!searchedNodeMap.containsKey(sourceVertex)) {
+				if (!activedVertexSet.contains(sourceVertex)) {
 					double flip = randomFlip.nextFloat();
 					if (flip < 1.0 / inDegree) {
+						activedVertexSet.add(sourceVertex);
+						sDeque.addLast(sourceVertex);
 						double distance = rrMap.get(vertex) + g.getEdgeWeight(incomingEdge);
 						if (!rrMap.containsKey(sourceVertex) || rrMap.containsKey(sourceVertex) && distance < rrMap.get(sourceVertex)) {
 							rrMap.put(sourceVertex, distance);
-							sDeque.addLast(sourceVertex);
 						}
 					}
 				}
@@ -62,13 +63,13 @@ public class ReverseEfficiencySampling {
 		Random randomGenerator = new Random(currentTime);
 		
 		currentTime = System.currentTimeMillis();
-		Random randomFilp = new Random(currentTime);
+		Random randomFlip = new Random(currentTime);
 		// initialize reverse map array for the reverse maps.
 //		HashMap<String, Double>[] rrMapArr = new HashMap[r];
 		ArrayList<HashMap<String, Double>> rrMapArr = new ArrayList<>();
 		for (int i = 0; i < r; i++) {
 			String v = vertexArr[randomGenerator.nextInt(n)];
-			rrMapArr.add(this.generateReverseReachableMap(g, v, randomFilp));
+			rrMapArr.add(this.generateReverseReachableMap(g, v, randomFlip));
 			distanceMap.put(i, Double.POSITIVE_INFINITY);
 		}
 		
@@ -98,7 +99,7 @@ public class ReverseEfficiencySampling {
 					maxNode = node;
 				}
 			}
-			s.add(maxNode);		
+			s.add(maxNode);	
 		}
 		
 		return s;

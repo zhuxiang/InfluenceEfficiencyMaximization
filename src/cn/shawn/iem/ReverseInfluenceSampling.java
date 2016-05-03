@@ -20,30 +20,56 @@ import org.jgrapht.graph.DefaultWeightedEdge;
  */
 public class ReverseInfluenceSampling {
 
-	private HashSet<String> generateReverseReachableSet(DefaultDirectedWeightedGraph<String, DefaultWeightedEdge> g, String v, Random randomFlip) {
+	private HashSet<String> generateReverseReachableSet(DefaultDirectedWeightedGraph<String, DefaultWeightedEdge> g, String v, Random randomFlip, String model) {
 		HashSet<String> rrSet = new HashSet<>();
 		ArrayDeque<String> sDeque = new ArrayDeque<>();
 		rrSet.add(v);
 		sDeque.push(v);
-		while (sDeque.size() > 0) {
-			String vertex = sDeque.removeFirst();
-			Set<DefaultWeightedEdge> incomingEdges = g.incomingEdgesOf(vertex);
-			int inDegree = g.inDegreeOf(vertex);
-			for (DefaultWeightedEdge incomingEdge : incomingEdges) {
-				String sourceVertex = g.getEdgeSource(incomingEdge);
-				if (!rrSet.contains(sourceVertex)) {
-					double flip = randomFlip.nextFloat();
-					if (flip < 1.0 / inDegree) {
-						rrSet.add(sourceVertex);
-						sDeque.addLast(sourceVertex);
+		switch (model) {
+		case "wic":
+			while (sDeque.size() > 0) {
+				String vertex = sDeque.removeFirst();
+				Set<DefaultWeightedEdge> incomingEdges = g.incomingEdgesOf(vertex);
+				int inDegree = g.inDegreeOf(vertex);
+				for (DefaultWeightedEdge incomingEdge : incomingEdges) {
+					String sourceVertex = g.getEdgeSource(incomingEdge);
+					if (!rrSet.contains(sourceVertex)) {
+						double flip = randomFlip.nextFloat();
+						if (flip < 1.0 / inDegree) {
+							rrSet.add(sourceVertex);
+							sDeque.addLast(sourceVertex);
+						}
 					}
 				}
 			}
+			break;
+			
+		case "uic":
+			Double probability = 0.01;
+			while (sDeque.size() > 0) {
+				String vertex = sDeque.removeFirst();
+				Set<DefaultWeightedEdge> incomingEdges = g.incomingEdgesOf(vertex);
+				for (DefaultWeightedEdge incomingEdge : incomingEdges) {
+					String sourceVertex = g.getEdgeSource(incomingEdge);
+					if (!rrSet.contains(sourceVertex)) {
+						double flip = randomFlip.nextFloat();
+						if (flip < probability) {
+							rrSet.add(sourceVertex);
+							sDeque.addLast(sourceVertex);
+						}
+					}
+				}
+			}
+			break;
+			
+		default:
+			break;
 		}
+		
 		return rrSet;
 	}
 	
-	public ArrayList<String> calculateSourceSet(DefaultDirectedWeightedGraph<String, DefaultWeightedEdge> g, int k, int r) {
+	public ArrayList<String> calculateSourceSet(DefaultDirectedWeightedGraph<String, DefaultWeightedEdge> g, int k, int r, String model) {
 		ArrayList<String> s = new ArrayList<>();
 		HashSet<HashSet<String>> rrSets = new HashSet<>();
 		
@@ -59,7 +85,7 @@ public class ReverseInfluenceSampling {
 		
 		for (int i = 0; i < r; i++) {
 			String v = vertexArr[randomGenerator.nextInt(n)];
-			rrSets.add(this.generateReverseReachableSet(g, v, randomFilp));
+			rrSets.add(this.generateReverseReachableSet(g, v, randomFilp, model));
 		}
 		
 		for (int i = 0; i < k; i++) {
@@ -102,6 +128,7 @@ public class ReverseInfluenceSampling {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		String fileName = args[0];
+		String model = args[1];
 		DefaultDirectedWeightedGraph<String, DefaultWeightedEdge> dirWgtGph = Utility.loadGraph(fileName);
 		ReverseInfluenceSampling ris = new ReverseInfluenceSampling();
 		int k = 50;
@@ -109,7 +136,7 @@ public class ReverseInfluenceSampling {
 		Double samplingCnt = n*Math.log(Double.parseDouble(Integer.toString(n)));
 		int r = samplingCnt.intValue();
 		long startTime = System.currentTimeMillis();
-		ArrayList<String> s = ris.calculateSourceSet(dirWgtGph, k, r);
+		ArrayList<String> s = ris.calculateSourceSet(dirWgtGph, k, r, model);
 		long endTime = System.currentTimeMillis();
 		double runTimeSec = (endTime - startTime)/1000.0;
 		System.out.println("k = " + k + ", r = " + r + ", runtime = " + runTimeSec + " secs.");

@@ -139,7 +139,7 @@ public class ReverseInfluenceSampling {
 		ArrayList<String> s = ris.calculateSourceSet(dirWgtGph, k, r, model);
 		long endTime = System.currentTimeMillis();
 		double runTimeSec = (endTime - startTime)/1000.0;
-		System.out.println("k = " + k + ", r = " + r + ", runtime = " + runTimeSec + " secs.");
+		System.out.println("RIS algorithm: k = " + k + ", r = " + r + ", runtime = " + runTimeSec + " secs.");
 		System.out.println(s);
 	}
 

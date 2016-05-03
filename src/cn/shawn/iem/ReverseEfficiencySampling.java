@@ -152,11 +152,10 @@ public class ReverseEfficiencySampling {
 		ArrayList<String> s = res.calculateSourceSet(dirWgtGph, k, r, model);
 		long endTime = System.currentTimeMillis();
 		double runTimeSec = (endTime - startTime)/1000.0;
-		System.out.println("k = " + k + ", r = " + r + ", runtime = " + runTimeSec + " secs.");
+		System.out.println("RES algorithm: k = " + k + ", r = " + r + ", runtime = " + runTimeSec + " secs.");
 		System.out.println(s);
-		InfluenceEfficiencySimulator simulation = new InfluenceEfficiencySimulator();
-		Integer times = new Integer(5);
-		Double efficiency = simulation.simulateInfluenceEfficiency(dirWgtGph, s, model, times);
+		Integer times = new Integer(100);
+		Double efficiency = Utility.simulateInfluenceEfficiency(dirWgtGph, s, model, times);
 		System.out.println("efficiency = " + efficiency + ".");
 	}
 

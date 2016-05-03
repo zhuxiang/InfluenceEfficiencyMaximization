@@ -125,7 +125,7 @@ public class ReverseEfficiencySampling {
 		long startTime = System.currentTimeMillis();
 		ArrayList<String> s = res.calculateSourceSet(dirWgtGph, k, r);
 		long endTime = System.currentTimeMillis();
-		long runTimeSec = (endTime - startTime)/1000;
+		double runTimeSec = (endTime - startTime)/1000.0;
 		System.out.println("k = " + k + ", r = " + r + ", runtime = " + runTimeSec + " secs.");
 		System.out.println(s);
 	}

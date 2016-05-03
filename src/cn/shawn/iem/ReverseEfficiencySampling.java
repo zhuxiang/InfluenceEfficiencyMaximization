@@ -5,7 +5,6 @@ package cn.shawn.iem;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;
-import java.util.Deque;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Random;
@@ -23,7 +22,7 @@ public class ReverseEfficiencySampling {
 		HashMap<String, Double> rrMap = new HashMap<>();
 		HashSet<String> activedVertexSet = new HashSet<>();
 		// initialize reverse reachable dequeue
-		Deque<String> sDeque = new ArrayDeque<String>();
+		ArrayDeque<String> sDeque = new ArrayDeque<String>();
 		sDeque.addLast(v);
 		activedVertexSet.add(v);
 		rrMap.put(v, 1.0);
@@ -155,6 +154,10 @@ public class ReverseEfficiencySampling {
 		double runTimeSec = (endTime - startTime)/1000.0;
 		System.out.println("k = " + k + ", r = " + r + ", runtime = " + runTimeSec + " secs.");
 		System.out.println(s);
+		InfluenceEfficiencySimulator simulation = new InfluenceEfficiencySimulator();
+		Integer times = new Integer(5);
+		Double efficiency = simulation.simulateInfluenceEfficiency(dirWgtGph, s, model, times);
+		System.out.println("efficiency = " + efficiency + ".");
 	}
 
 }

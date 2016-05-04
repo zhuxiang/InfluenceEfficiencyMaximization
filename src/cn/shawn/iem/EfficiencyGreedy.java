@@ -16,7 +16,7 @@ import org.jgrapht.graph.DefaultWeightedEdge;
  */
 public class EfficiencyGreedy {
 	
-	private DefaultDirectedWeightedGraph<String, DefaultWeightedEdge> GenerateSubgraph(DefaultDirectedWeightedGraph<String, DefaultWeightedEdge> g, String model) {
+	private DefaultDirectedWeightedGraph<String, DefaultWeightedEdge> generateSubgraph(DefaultDirectedWeightedGraph<String, DefaultWeightedEdge> g, String model) {
 		DefaultDirectedWeightedGraph<String, DefaultWeightedEdge> subGraph = (DefaultDirectedWeightedGraph<String, DefaultWeightedEdge>)g.clone();
 		long currentTime = System.currentTimeMillis();
 		Random randomFlip = new Random(currentTime);
@@ -58,7 +58,7 @@ public class EfficiencyGreedy {
 		ArrayList<String> s = new ArrayList<>();
 		ArrayList<DefaultDirectedWeightedGraph<String, DefaultWeightedEdge>> subgraphArray = new ArrayList<>();
 		for (int i = 0; i < r; i++) {
-			subgraphArray.add(this.GenerateSubgraph(g, model));
+			subgraphArray.add(this.generateSubgraph(g, model));
 		}
 		
 		

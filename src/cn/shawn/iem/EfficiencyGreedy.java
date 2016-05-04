@@ -96,7 +96,7 @@ public class EfficiencyGreedy {
 		String model = args[1];
 		DefaultDirectedWeightedGraph<String, DefaultWeightedEdge> dirWgtGph = Utility.loadGraph(fileName);
 		EfficiencyGreedy effGreedy = new EfficiencyGreedy();
-		int k = 50;
+		int k = Integer.parseInt(args[2]);
 //		int n = dirWgtGph.vertexSet().size();
 //		Double samplingCnt = n*Math.log(Double.parseDouble(Integer.toString(n)));
 		int r = 20000;

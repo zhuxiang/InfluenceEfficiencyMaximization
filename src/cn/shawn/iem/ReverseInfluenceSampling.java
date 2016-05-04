@@ -131,7 +131,7 @@ public class ReverseInfluenceSampling {
 		String model = args[1];
 		DefaultDirectedWeightedGraph<String, DefaultWeightedEdge> dirWgtGph = Utility.loadGraph(fileName);
 		ReverseInfluenceSampling ris = new ReverseInfluenceSampling();
-		int k = 50;
+		int k = Integer.parseInt(args[2]);
 		int n = dirWgtGph.vertexSet().size();
 		Double samplingCnt = n*Math.log(Double.parseDouble(Integer.toString(n)));
 		int r = samplingCnt.intValue();

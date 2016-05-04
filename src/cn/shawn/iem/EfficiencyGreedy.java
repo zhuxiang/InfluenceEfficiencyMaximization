@@ -97,9 +97,9 @@ public class EfficiencyGreedy {
 		DefaultDirectedWeightedGraph<String, DefaultWeightedEdge> dirWgtGph = Utility.loadGraph(fileName);
 		EfficiencyGreedy effGreedy = new EfficiencyGreedy();
 		int k = 50;
-		int n = dirWgtGph.vertexSet().size();
-		Double samplingCnt = n*Math.log(Double.parseDouble(Integer.toString(n)));
-		int r = samplingCnt.intValue();
+//		int n = dirWgtGph.vertexSet().size();
+//		Double samplingCnt = n*Math.log(Double.parseDouble(Integer.toString(n)));
+		int r = 20000;
 		long startTime = System.currentTimeMillis();
 		ArrayList<String> s = effGreedy.greedy(dirWgtGph, k, r, model);
 		long endTime = System.currentTimeMillis();

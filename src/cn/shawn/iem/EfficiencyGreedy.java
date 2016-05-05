@@ -4,8 +4,6 @@
 package cn.shawn.iem;
 
 import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Random;
 import java.util.Set;
 
 import org.jgrapht.graph.DefaultDirectedWeightedGraph;
@@ -35,7 +33,7 @@ public class EfficiencyGreedy {
 					Double eff = 0.0;
 					ArrayList<String> tmpS = (ArrayList<String>)s.clone();
 					tmpS.add(vertex);
-					eff += Utility.simulateInfluenceEfficiency(g, tmpS, model, r);
+					eff = Utility.simulateInfluenceEfficiency(g, tmpS, model, r);
 					if (eff > maxEff) {
 						maxEff = eff;
 						maxVertex = vertex;
@@ -57,8 +55,6 @@ public class EfficiencyGreedy {
 		DefaultDirectedWeightedGraph<String, DefaultWeightedEdge> dirWgtGph = Utility.loadGraph(fileName);
 		EfficiencyGreedy effGreedy = new EfficiencyGreedy();
 		int k = Integer.parseInt(args[2]);
-//		int n = dirWgtGph.vertexSet().size();
-//		Double samplingCnt = n*Math.log(Double.parseDouble(Integer.toString(n)));
 		int r = 20000;
 		long startTime = System.currentTimeMillis();
 		ArrayList<String> s = effGreedy.greedy(dirWgtGph, k, r, model);

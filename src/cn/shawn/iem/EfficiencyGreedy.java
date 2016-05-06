@@ -33,7 +33,7 @@ public class EfficiencyGreedy {
 					Double eff = 0.0;
 					ArrayList<String> tmpS = (ArrayList<String>)s.clone();
 					tmpS.add(vertex);
-					eff = Utility.simulateInfluenceEfficiency(g, tmpS, model, r);
+					eff = Utility.calcInfluenceEfficiencyMCMultiThreadIC(g, tmpS, model, r);
 					if (eff > maxEff) {
 						maxEff = eff;
 						maxVertex = vertex;
@@ -63,8 +63,9 @@ public class EfficiencyGreedy {
 		System.out.println("Greedy: k = " + k + ", r = " + r + ", runtime = " + runTimeSec + " secs.");
 		System.out.println(s);
 		Integer times = new Integer(100);
-		Double efficiency = Utility.simulateInfluenceEfficiency(dirWgtGph, s, model, times);
+		Double efficiency = Utility.calcInfluenceEfficiencyMCMultiThreadIC(dirWgtGph, s, model, times);
 		System.out.println("efficiency = " + efficiency + ".");
+		Utility.getThreadPool().shutdown();
 	}
 
 }

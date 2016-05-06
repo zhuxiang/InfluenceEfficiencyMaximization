@@ -65,7 +65,7 @@ public class EfficiencyLazyGreedy {
 		for (String vertex : g.vertexSet()) {
 			ArrayList<String> tmp = new ArrayList<>();
 			tmp.add(vertex);
-			Double eff = Utility.simulateInfluenceEfficiency(g, tmp, model, r);
+			Double eff = Utility.calcInfluenceEfficiencyMCMultiThreadIC(g, tmp, model, r);
 			Node node = new Node(vertex, eff, 1);
 			pQueue.add(node);
 		}
@@ -79,7 +79,7 @@ public class EfficiencyLazyGreedy {
 			else {
 				ArrayList<String> tmpS = (ArrayList<String>)s.clone();
 				tmpS.add(u.getName());
-				Double eff = Utility.simulateInfluenceEfficiency(g, tmpS, model, r);
+				Double eff = Utility.calcInfluenceEfficiencyMCMultiThreadIC(g, tmpS, model, r);
 				Node updateU = new Node(u.getName(), eff, iteration);
 				pQueue.add(updateU);
 			}
@@ -105,8 +105,9 @@ public class EfficiencyLazyGreedy {
 		System.out.println("LazyGreedy: k = " + k + ", r = " + r + ", runtime = " + runTimeSec + " secs.");
 		System.out.println(s);
 		Integer times = new Integer(200);
-		Double efficiency = Utility.simulateInfluenceEfficiency(dirWgtGph, s, model, times);
+		Double efficiency = Utility.calcInfluenceEfficiencyMCMultiThreadIC(dirWgtGph, s, model, times);
 		System.out.println("efficiency = " + efficiency + ".");
+		Utility.getThreadPool().shutdown();
 	}
 
 }

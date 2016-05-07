@@ -97,7 +97,7 @@ public class EfficiencyLazyGreedy {
 		DefaultDirectedWeightedGraph<String, DefaultWeightedEdge> dirWgtGph = Utility.loadGraph(fileName);
 		EfficiencyLazyGreedy effLazyGreedy = new EfficiencyLazyGreedy();
 		int k = Integer.parseInt(args[2]);
-		int r = 20000;
+		int r = 10000;
 		long startTime = System.currentTimeMillis();
 		ArrayList<String> s = effLazyGreedy.lazyGreedy(dirWgtGph, k, r, model);
 		long endTime = System.currentTimeMillis();

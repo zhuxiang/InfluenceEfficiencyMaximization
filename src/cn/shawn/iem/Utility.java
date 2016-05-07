@@ -157,7 +157,7 @@ public class Utility {
 			final DefaultDirectedWeightedGraph<String, DefaultWeightedEdge> g,
 			final ArrayList<String> s, final String model, final Integer times) {
 		CompletionService<Double> cs = new ExecutorCompletionService<>(threadPool);
-		int nTasks = 20;
+		int nTasks = 10;
 		final int iterations = times / nTasks;
 		for (int i = 0; i < nTasks; i++) {
 			cs.submit(new Callable<Double>() {

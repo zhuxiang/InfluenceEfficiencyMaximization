@@ -1,10 +1,10 @@
 #Fat Jar Configuration File
-#Wed May 04 23:30:25 PDT 2016
+#Sat May 07 09:59:53 PDT 2016
 onejar.license.required=false
 manifest.classpath=
 manifest.removesigners=true
 onejar.checkbox=true
-jarname=/Users/zhuxiang/workspace/InfluenceEfficiencyMaximization/lazygreedy-facebook.jar
+jarname=/Users/zhuxiang/workspace/InfluenceEfficiencyMaximization/lazygreedy-r10000-p0.01-t10.jar
 manifest.mergeall=true
 manifest.mainclass=cn.shawn.iem.EfficiencyLazyGreedy
 manifest.file=<createnew>

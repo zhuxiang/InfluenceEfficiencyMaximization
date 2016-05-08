@@ -268,7 +268,28 @@ public class Utility {
 		DefaultDirectedWeightedGraph<String, DefaultWeightedEdge> dirWgtGph = Utility.loadGraph(fileName);
 		System.out.println(dirWgtGph.vertexSet().size());
 		System.out.println(dirWgtGph.edgeSet().size());
-		
+		HashMap<String, Integer> indegreeMap = new HashMap<>();
+		for (String vertex : dirWgtGph.vertexSet()) {
+			indegreeMap.put(vertex, dirWgtGph.inDegreeOf(vertex));
+		}
+		long startTime = System.currentTimeMillis();		
+		for (int i = 0; i < 1000; i++) {
+			for (String vertex : dirWgtGph.vertexSet()) {
+				dirWgtGph.inDegreeOf(vertex);
+			} 
+		}
+		long endTime = System.currentTimeMillis();
+		double runTimeSec = (endTime - startTime)/1000.0;
+		System.out.println("runtime = " + runTimeSec + " secs.");
+		startTime = System.currentTimeMillis();
+		for (int i = 0; i < 1000; i++) {
+			for (String vertex : dirWgtGph.vertexSet()) {
+				indegreeMap.get(vertex);
+			} 
+		}
+		endTime = System.currentTimeMillis();
+		runTimeSec = (endTime - startTime)/1000.0;
+		System.out.println("runtime = " + runTimeSec + " secs.");
 	}
 
 }

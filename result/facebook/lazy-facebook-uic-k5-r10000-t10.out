@@ -1,0 +1,4 @@
+nohup: ignoring input
+LazyGreedy: k = 5, r = 10000, runtime = 23.557 secs.
+[107, 1912, 1684, 3437, 0]
+efficiency = 22.880416666666665.

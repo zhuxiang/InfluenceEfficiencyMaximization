@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package cn.shawn.iem;
 
@@ -71,10 +71,10 @@ public class ReverseEfficiencySampling {
 		default:
 			break;
 		}
-		
+
 		return rrMap;
 	}
-	
+
 	public ArrayList<String> calculateSourceSet(DefaultDirectedWeightedGraph<String, DefaultWeightedEdge> g, int k, int r, String model) {
 		// initialize seed set s
 		ArrayList<String> s = new ArrayList<>();
@@ -84,10 +84,10 @@ public class ReverseEfficiencySampling {
 		int n = g.vertexSet().size();
 		String[] vertexArr = new String[n];
 		g.vertexSet().toArray(vertexArr);
-		
+
 		long currentTime = System.currentTimeMillis();
 		Random randomGenerator = new Random(currentTime);
-		
+
 		currentTime = System.currentTimeMillis();
 		Random randomFlip = new Random(currentTime);
 		// initialize reverse map array for the reverse maps.
@@ -97,12 +97,12 @@ public class ReverseEfficiencySampling {
 			rrMapArr.add(this.generateReverseReachableMap(g, v, randomFlip, model));
 			distanceMap.put(i, Double.POSITIVE_INFINITY);
 		}
-		
+
 		for (int i = 0; i < k; i++) {
 			HashMap<String, Double> eff = new HashMap<>();
 			for (int j = 0; j < r; j++) {
 				HashMap<String, Double> rrMap = rrMapArr.get(j);
-				for (String u : rrMap.keySet()) {				
+				for (String u : rrMap.keySet()) {
 					if (!s.contains(u)) {
 						if (rrMap.get(u) < distanceMap.get(j)) {
 							double marginalGain = 1.0 / rrMap.get(u) - 1.0 / distanceMap.get(j);
@@ -111,11 +111,12 @@ public class ReverseEfficiencySampling {
 							} else {
 								eff.put(u, marginalGain);
 							}
-						} 
+//							distanceMap.put(j, rrMap.get(u));
+						}
 					}
 				}
 			}
-			
+
 			double maxEff = 0.0;
 			String maxNode = new String("-1");
 			for (String node : eff.keySet()) {
@@ -124,9 +125,20 @@ public class ReverseEfficiencySampling {
 					maxNode = node;
 				}
 			}
-			s.add(maxNode);	
+			
+			if (!maxNode.equals("-1")) {
+				s.add(maxNode);
+			}
+			
+			// update distance map.
+			for (int j = 0; j < r; j++) {
+				HashMap<String, Double> rrMap = rrMapArr.get(j);
+				if (rrMap.containsKey(maxNode)) {
+					distanceMap.put(j, rrMap.get(maxNode));
+				}
+			}
 		}
-		
+
 		return s;
 	}
 

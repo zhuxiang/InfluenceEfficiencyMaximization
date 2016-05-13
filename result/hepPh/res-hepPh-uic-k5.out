@@ -1,4 +1,3 @@
-nohup: ignoring input
-RES algorithm: k = 5, r = 361007, runtime = 2.753 secs.
-[9804398, 9407339, 9803315, 9507378, 9512380]
-efficiency = 21.8255.
+RES algorithm: k = 5, r = 361007, runtime = 2.579 secs.
+[9803315, 9512380, 9804398, 9306320, 9807344]
+efficiency = 22.37416666666667.

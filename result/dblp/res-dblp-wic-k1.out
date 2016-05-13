@@ -1,4 +1,3 @@
-nohup: ignoring input
-RES algorithm: k = 1, r = 8177307, runtime = 132.268 secs.
+RES algorithm: k = 1, r = 8177307, runtime = 247.856 secs.
 [1299]
-efficiency = 698.1244527825214.
+efficiency = 628.3553195508571.

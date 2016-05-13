@@ -111,6 +111,7 @@ public class ReverseEfficiencySampling {
 							} else {
 								eff.put(u, marginalGain);
 							}
+//							distanceMap.put(j, rrMap.get(u));
 						}
 					}
 				}
@@ -124,7 +125,18 @@ public class ReverseEfficiencySampling {
 					maxNode = node;
 				}
 			}
-			s.add(maxNode);
+			
+			if (!maxNode.equals("-1")) {
+				s.add(maxNode);
+			}
+			
+			// update distance map.
+			for (int j = 0; j < r; j++) {
+				HashMap<String, Double> rrMap = rrMapArr.get(j);
+				if (rrMap.containsKey(maxNode)) {
+					distanceMap.put(j, rrMap.get(maxNode));
+				}
+			}
 		}
 
 		return s;

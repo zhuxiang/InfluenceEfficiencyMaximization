@@ -1,3 +1,4 @@
+java -Xms40g -Xmx40g -jar res-p0.01.jar data/soc-pokec-relationships.txt wic 1 > result/res-pokec-wic-k1.out
 java -Xms40g -Xmx40g -jar res-p0.01.jar data/soc-pokec-relationships.txt wic 50 > result/res-pokec-wic-k50.out
 java -Xms40g -Xmx40g -jar res-p0.01.jar data/soc-pokec-relationships.txt wic 45 > result/res-pokec-wic-k45.out
 java -Xms40g -Xmx40g -jar res-p0.01.jar data/soc-pokec-relationships.txt wic 40 > result/res-pokec-wic-k40.out
@@ -8,7 +9,6 @@ java -Xms40g -Xmx40g -jar res-p0.01.jar data/soc-pokec-relationships.txt wic 20 
 java -Xms40g -Xmx40g -jar res-p0.01.jar data/soc-pokec-relationships.txt wic 15 > result/res-pokec-wic-k15.out
 java -Xms40g -Xmx40g -jar res-p0.01.jar data/soc-pokec-relationships.txt wic 10 > result/res-pokec-wic-k10.out
 java -Xms40g -Xmx40g -jar res-p0.01.jar data/soc-pokec-relationships.txt wic 5 > result/res-pokec-wic-k5.out
-java -Xms40g -Xmx40g -jar res-p0.01.jar data/soc-pokec-relationships.txt wic 1 > result/res-pokec-wic-k1.out
 java -Xms40g -Xmx40g -jar res-p0.01.jar data/soc-pokec-relationships.txt uic 50 > result/res-pokec-uic-k50.out
 java -Xms40g -Xmx40g -jar res-p0.01.jar data/soc-pokec-relationships.txt uic 45 > result/res-pokec-uic-k45.out
 java -Xms40g -Xmx40g -jar res-p0.01.jar data/soc-pokec-relationships.txt uic 40 > result/res-pokec-uic-k40.out

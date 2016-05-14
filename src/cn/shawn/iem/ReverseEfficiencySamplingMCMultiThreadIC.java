@@ -155,20 +155,39 @@ public class ReverseEfficiencySamplingMCMultiThreadIC {
 	public ArrayList<String> calculateSourceSet(
 			final DefaultDirectedWeightedGraph<String, DefaultWeightedEdge> g, 
 			final int k, final int r, final String model) {
-		// initialize seed set s
+		// Initialize seed set s
 		ArrayList<String> s = new ArrayList<>();
-		// initialize distance map
+		// Initialize distance map
 		HashMap<Integer, Double> distanceMap = new HashMap<>();
-		
-		long startTime = System.currentTimeMillis();
+		// The whole reverse reachable hash maps.
 		ArrayList<HashMap<String, Double>> rrMapArr = 
 				this.generateReverseReachableMap(g, r, model);
-		long endTime = System.currentTimeMillis();
-		double runTimeSec = (endTime - startTime)/1000.0;
-		System.out.println("Generate rrMaps: running time = " + runTimeSec);
+		// Initialize the distance map.
 		for (int i = 0; i < r; i++) {
 			distanceMap.put(i, Double.POSITIVE_INFINITY);
 		}
+		
+		/* Now we want to separate the hash map list, calculate the 
+		 * efficiency independently, then combine all the efficiency 
+		 * map. 
+		*/
+		
+//		CompletionService<HashMap<String, Double>> cs = 
+//				new ExecutorCompletionService<>(threadPool);
+//		int nTasks = ReverseEfficiencySamplingMCMultiThreadIC.nTasks;
+//		final int iterations = r / nTasks;
+//		
+//		for (int i = 0; i < nTasks; i++) {
+//			
+//			cs.submit(new Callable<HashMap<String,Double>>() {
+//				
+//				@Override
+//				public HashMap<String, Double> call() throws Exception {
+//					
+//					return null;
+//				}
+//			});
+//		}
 		
 		for (int i = 0; i < k; i++) {
 			HashMap<String, Double> eff = new HashMap<>();

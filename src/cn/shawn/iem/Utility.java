@@ -72,11 +72,11 @@ public class Utility {
 					subGraph.addVertex(sourceVertex);
 					subGraph.addVertex(targetVertex);
 					subGraph.addEdge(sourceVertex, targetVertex, outgoingEdge);
-					if (searchedVertexArr.contains(targetVertex)) {
-						continue;
-					}
-					sDeque.addLast(targetVertex);
 					m++;
+					if (!searchedVertexArr.contains(targetVertex) && !sDeque.contains(targetVertex)) {
+						sDeque.addLast(targetVertex);
+						
+					}			
 //					System.out.println(subGraph.edgeSet().size());
 					if (m >= edgeNum) {
 						break;
@@ -115,6 +115,47 @@ public class Utility {
 				}
 				if (vertexs.length == 3) {
 					dirWgtGph.setEdgeWeight(e, Double.parseDouble(vertexs[2]));
+				}
+				line = br.readLine();
+			}
+			br.close();
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return dirWgtGph;
+	}
+	
+	/**
+	 * 
+	 * @param fileName
+	 * @return
+	 */
+	public static DefaultDirectedWeightedGraph<String, DefaultWeightedEdge> loadUndirectedGraph(String fileName) {
+		DefaultDirectedWeightedGraph<String, DefaultWeightedEdge> dirWgtGph = new DefaultDirectedWeightedGraph<>(DefaultWeightedEdge.class);
+		BufferedReader br = null;
+		try {
+			br = new BufferedReader(new FileReader(fileName));
+			String line = br.readLine();
+			ClassBasedEdgeFactory<String, DefaultWeightedEdge> ef = new ClassBasedEdgeFactory<>(DefaultWeightedEdge.class);
+			while (line != null) {
+				String[] vertexs = line.trim().split("[\t ]");
+				dirWgtGph.addVertex(vertexs[0]);
+				dirWgtGph.addVertex(vertexs[1]);
+				DefaultWeightedEdge e1 = ef.createEdge(vertexs[0], vertexs[1]);
+				DefaultWeightedEdge e2 = ef.createEdge(vertexs[0], vertexs[1]);
+				dirWgtGph.addEdge(vertexs[0], vertexs[1], e1);
+				dirWgtGph.addEdge(vertexs[0], vertexs[1], e2);
+				if (vertexs.length == 2) {
+					dirWgtGph.setEdgeWeight(e1, 1.0);
+					dirWgtGph.setEdgeWeight(e2, 1.0);
+				}
+				if (vertexs.length == 3) {
+					dirWgtGph.setEdgeWeight(e1, Double.parseDouble(vertexs[2]));
+					dirWgtGph.setEdgeWeight(e2, Double.parseDouble(vertexs[2]));
 				}
 				line = br.readLine();
 			}

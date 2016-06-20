@@ -1,12 +1,12 @@
 #Fat Jar Configuration File
-#Fri May 13 10:27:30 PDT 2016
+#Mon Jun 20 23:58:16 CST 2016
 onejar.license.required=false
 manifest.classpath=
 manifest.removesigners=true
 onejar.checkbox=true
-jarname=/Users/zhuxiang/workspace/InfluenceEfficiencyMaximization/res-p0.01.jar
+jarname=/Users/zhuxiang/workspace/InfluenceEfficiencyMaximization/scalability-p0.01.jar
 manifest.mergeall=true
-manifest.mainclass=cn.shawn.iem.ReverseInfluenceSampling
+manifest.mainclass=cn.shawn.iem.ScalabilityTest
 manifest.file=<createnew>
 jarname.isextern=true
 onejar.expand=

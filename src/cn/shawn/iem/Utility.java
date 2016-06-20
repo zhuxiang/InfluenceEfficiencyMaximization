@@ -84,8 +84,8 @@ public class Utility {
 				}
 			}
 		}
-		System.out.println(m);
-		System.out.println(subGraph.edgeSet().size());
+//		System.out.println(m);
+//		System.out.println(subGraph.edgeSet().size());
 		return subGraph;
 	}
 	
@@ -146,9 +146,9 @@ public class Utility {
 				dirWgtGph.addVertex(vertexs[0]);
 				dirWgtGph.addVertex(vertexs[1]);
 				DefaultWeightedEdge e1 = ef.createEdge(vertexs[0], vertexs[1]);
-				DefaultWeightedEdge e2 = ef.createEdge(vertexs[0], vertexs[1]);
+				DefaultWeightedEdge e2 = ef.createEdge(vertexs[1], vertexs[0]);
 				dirWgtGph.addEdge(vertexs[0], vertexs[1], e1);
-				dirWgtGph.addEdge(vertexs[0], vertexs[1], e2);
+				dirWgtGph.addEdge(vertexs[1], vertexs[0], e2);
 				if (vertexs.length == 2) {
 					dirWgtGph.setEdgeWeight(e1, 1.0);
 					dirWgtGph.setEdgeWeight(e2, 1.0);

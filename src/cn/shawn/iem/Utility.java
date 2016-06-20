@@ -32,6 +32,63 @@ public class Utility {
 	private static int nThreads = 10;	
 	private static ExecutorService threadPool = Executors.newFixedThreadPool(nThreads);
 	
+	/**
+	 * generate subgraph by BFS.
+	 * @param dirWgtGph
+	 * @param edgeNum
+	 * @return
+	 */
+	public static DefaultDirectedWeightedGraph<String, DefaultWeightedEdge> generateSubgraph(
+			DefaultDirectedWeightedGraph<String, DefaultWeightedEdge> dirWgtGph,
+			Integer edgeNum) {
+		DefaultDirectedWeightedGraph<String, DefaultWeightedEdge> subGraph =
+				new DefaultDirectedWeightedGraph<>(DefaultWeightedEdge.class);
+		// the vertex which has been added to subgraph
+		ArrayList<String> searchedVertexArr = new ArrayList<>();
+		// the number of edges has been added to subgraph
+		int m = 0;
+		
+		int n = dirWgtGph.vertexSet().size();
+		String[] vertexArr = new String[n];
+		dirWgtGph.vertexSet().toArray(vertexArr);
+		
+		long currentTime = System.currentTimeMillis();
+		Random randomGenerator = new Random(currentTime);
+		
+		ArrayDeque<String> sDeque = new ArrayDeque<>();
+		while (m < edgeNum) {
+			String v = vertexArr[randomGenerator.nextInt(n)];
+			if (searchedVertexArr.contains(v)) {
+				continue;
+			}
+			sDeque.clear();
+			sDeque.add(v);
+			while (sDeque.size() > 0 && m < edgeNum) {
+				String sourceVertex = sDeque.removeFirst();
+				searchedVertexArr.add(sourceVertex);
+				Set<DefaultWeightedEdge> outgoingEdges = dirWgtGph.outgoingEdgesOf(sourceVertex);
+				for (DefaultWeightedEdge outgoingEdge : outgoingEdges) {
+					String targetVertex = dirWgtGph.getEdgeTarget(outgoingEdge);
+					subGraph.addVertex(sourceVertex);
+					subGraph.addVertex(targetVertex);
+					subGraph.addEdge(sourceVertex, targetVertex, outgoingEdge);
+					if (searchedVertexArr.contains(targetVertex)) {
+						continue;
+					}
+					sDeque.addLast(targetVertex);
+					m++;
+//					System.out.println(subGraph.edgeSet().size());
+					if (m >= edgeNum) {
+						break;
+					}
+				}
+			}
+		}
+		System.out.println(m);
+		System.out.println(subGraph.edgeSet().size());
+		return subGraph;
+	}
+	
 	public static ExecutorService getThreadPool() {
 		return threadPool;
 	}

@@ -31,19 +31,6 @@ import org.jgrapht.graph.DefaultWeightedEdge;
 public class Utility {
 	private static int nThreads = 10;	
 	private static ExecutorService threadPool = Executors.newFixedThreadPool(nThreads);
-	/**
-	 * 
-	 * @param g
-	 * @param m
-	 * @return
-	 */
-	public static DefaultDirectedWeightedGraph<String, DefaultWeightedEdge> generateSubgraph(
-			DefaultDirectedWeightedGraph<String, DefaultWeightedEdge> g,
-			int m) {
-		DefaultDirectedWeightedGraph<String, DefaultWeightedEdge> subgraph =
-				new DefaultDirectedWeightedGraph<>(DefaultWeightedEdge.class);
-		return subgraph;
-	}
 	
 	/**
 	 * generate subgraph by BFS.
